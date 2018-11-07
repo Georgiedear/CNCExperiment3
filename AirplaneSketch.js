@@ -8,14 +8,28 @@ var canvas;
 function setup() {
 canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 z = 0;
-
 }
 
 function draw() {
 	canvas.id('background');
 	//z in this case will control my speed
-camera(mouseX, mouseY, z*-5, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+camera(mouseX, mouseY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
+
+
+noStroke();
+normalMaterial();
+fill(20,55,100);
+push();
+translate(-275, 175,-500);
+
+cone(50,70);
+pop();
+
+z++;
+
+}
+/*
 //Shapes below are examples from the WebGL 
 //P5 GitHub: https://github.com/processing/p5.js/wiki/Getting-started-with-WebGL-in-p5 
 
@@ -61,5 +75,9 @@ translate(-140, -100, -5020);
   rotateX(frameCount * 0.01);
   box(70,70,z++);
   pop();
+
+
+
 }
+*/
 
