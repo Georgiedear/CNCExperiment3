@@ -1,19 +1,46 @@
+var serial;
+
+var serialPortName = "/dev/cu.usbmodem1411";
+
+var xOrient;
+var yOrient;
+var zOrient;
+
 
 var z;
 var c1;
 var c2;
-var Y_AXIS; //Example used from Linear Gradient 
 var gradientBG;
 var canvas;
+
 function setup() {
 canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 z = 0;
+
+serial = new p5.SerialPort();
+serial.open(serialPortName);
+serial.on('open', ardCon);
+ serial.on('data',dataReceived);  
+
 }
 
 function draw() {
+
 	canvas.id('background');
-	//z in this case will control my speed
-camera(mouseX, mouseY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+	//z in this case will control my speed, mouse X and mouse Y will be replaced with the IMU x and y
+//camera(mouseX, mouseY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+camera(xOrient, yOrient, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+
+
+noStroke();
+normalMaterial();
+fill(17,1,122);
+
+push();
+translate(0, 0,0);
+  rotateY(frameCount * 0.02);
+  torus(100, 8);
+pop();
 
 
 
@@ -29,6 +56,35 @@ pop();
 z++;
 
 }
+
+function dataReceived(){
+
+var rawImuData = serial.readStringUntil('\r\n');
+{
+
+if(rawImuData.length >1)
+{
+ xOrient = JSON.parse(rawImuData).oX;
+
+ yOrient = JSON.parse(rawImuData).oY;
+
+ zOrient = JSON.parse(rawImuData).oZ;
+
+ 
+}
+
+
+
+}
+
+
+}
+
+function ardCon()
+{
+  console.log("connected to the arduino!! Listen UP");
+}
+
 /*
 //Shapes below are examples from the WebGL 
 //P5 GitHub: https://github.com/processing/p5.js/wiki/Getting-started-with-WebGL-in-p5 
