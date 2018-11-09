@@ -42,14 +42,14 @@ function draw() {
 //camera(xOrient, yOrient, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 //camera(mX, mY, mZ*1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
-camera(mX, mY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+camera(mX, mY, z*-1, height/2, (height/2) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
 noStroke();
 normalMaterial();
 fill(17,1,122);
 
 push();
-translate(windowWidth/2, windowHeight/2,0);
+translate(windowWidth/2, windowHeight/6,0);
   rotateY(frameCount * 0.02);
   torus(100, 8);
 pop();
@@ -57,7 +57,7 @@ pop();
 
 
 push();
-translate(-windowWidth/2, windowHeight/2,-10000);
+translate(-windowWidth/2, windowHeight/6,-10000);
   rotateY(frameCount * 0.02);
   torus(100, 8);
 pop();
