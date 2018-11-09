@@ -68,7 +68,11 @@ void loop()
 
   //get the values
   xOrientation = event.orientation.x;
+  
   yOrientation = event.orientation.y;
+
+
+  
   zOrientation = event.orientation.z;
 
 
@@ -80,7 +84,9 @@ void loop()
   p5Send["oZ"]=zOrientation;                                //create a parameter called oX and assign the value from the sensor
                                                             //*Note you will need to remember the parameter name to access the data in p5
   p5Send.printTo(Serial);                                   //send the JSON object over the Serial Port
-  Serial.println();                                         //print a newline character to separate the messages
+  Serial.println(); 
+ 
+  //print a newline character to separate the messages
 ////////////////////////////create the message for p5  
   
   lastRead = millis(); //save the value of the current time so the timer works

@@ -6,6 +6,9 @@ var xOrient;
 var yOrient;
 var zOrient;
 
+var mZ;
+var mY;
+var mX;
 
 var z;
 var c1;
@@ -25,25 +28,39 @@ serial.on('open', ardCon);
 }
 
 function draw() {
-
+ 
 	canvas.id('background');
-	//z in this case will control my speed, mouse X and mouse Y will be replaced with the IMU x and y
-//camera(mouseX, mouseY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
-camera(xOrient, yOrient, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+	var mZ = map(zOrient, 0, -10, 0, windowHeight, true);
+ var mY = map(yOrient, -32, 62, 0, windowHeight, true);
+  var mX = map(xOrient, 255, 72, 0, -windowWidth, true);
 
+	//z in this case will control my speed, mouse X and mouse Y will be replaced with the IMU x and y
+
+	//Z will always steer us straight ahead. 
+	//X and Y will allow us to look up, down and side to side.
+//camera(mouseX, mouseY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+//camera(xOrient, yOrient, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+//camera(mX, mY, mZ*1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+
+camera(mX, mY, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
 noStroke();
 normalMaterial();
 fill(17,1,122);
 
 push();
-translate(0, 0,0);
+translate(windowWidth/2, windowHeight/2,0);
   rotateY(frameCount * 0.02);
   torus(100, 8);
 pop();
 
 
 
+push();
+translate(-windowWidth/2, windowHeight/2,-10000);
+  rotateY(frameCount * 0.02);
+  torus(100, 8);
+pop();
 noStroke();
 normalMaterial();
 fill(20,55,100);
@@ -52,8 +69,9 @@ translate(-275, 175,-500);
 
 cone(50,70);
 pop();
-
 z++;
+
+
 
 }
 
@@ -69,6 +87,11 @@ if(rawImuData.length >1)
  yOrient = JSON.parse(rawImuData).oY;
 
  zOrient = JSON.parse(rawImuData).oZ;
+
+ //Let's remap the orientation values min and max to the screen:
+
+//zOrient remapped
+
 
  
 }
