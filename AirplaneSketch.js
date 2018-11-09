@@ -16,6 +16,9 @@ var c2;
 var gradientBG;
 var canvas;
 
+// An array of hoopa
+var hoops = []; 
+
 function setup() {
 canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 z = 0;
@@ -25,6 +28,35 @@ serial.open(serialPortName);
 serial.on('open', ardCon);
  serial.on('data',dataReceived);  
 
+
+
+ for (var i = 0; i < 30; i++) {
+
+hoops[i] = {
+ r: 100,
+ 	tR: 8,
+x: random(0,windowWidth/8.5),
+y: random(windowHeight/4),
+z: random(0,-10000),
+ display: function() {
+ 	
+noStroke();
+normalMaterial();
+fill(17,1,122);
+},
+
+pos : function() {
+   push();
+//translate(this.x-1200, this.y, this.z+30);
+translate(this.x*-10+180, this.y*2+80, this.z);
+
+  rotateY(frameCount * 0.02);
+  torus(this.r, this.tR);
+pop();
+
+}
+}
+}
 }
 
 function draw() {
@@ -44,20 +76,15 @@ function draw() {
 
 camera(mX, mY, z*-1, height/2, (height/2) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
-noStroke();
-normalMaterial();
-fill(17,1,122);
+for(var i = 0; i < hoops.length; i++) {
+hoops[i].display();
+hoops[i].pos();
+}
 
+
+//Original Torus
 push();
-translate(windowWidth/2, windowHeight/6,0);
-  rotateY(frameCount * 0.02);
-  torus(100, 8);
-pop();
-
-
-
-push();
-translate(-windowWidth/2, windowHeight/6,-10000);
+translate(-windowWidth/2+300, windowHeight/6,-300);
   rotateY(frameCount * 0.02);
   torus(100, 8);
 pop();
@@ -69,9 +96,16 @@ translate(-275, 175,-500);
 
 cone(50,70);
 pop();
+
+
+
 z++;
 
+if(mZ > 0) {
 
+z*-3;
+
+}
 
 }
 
