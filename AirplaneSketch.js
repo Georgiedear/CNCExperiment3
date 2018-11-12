@@ -37,7 +37,7 @@ hoops[i] = {
  	tR: 8,
 x: random(0,windowWidth/8.5),
 y: random(windowHeight/4),
-z: random(0,-10000),
+z: random(0,-80000),
  display: function() {
  	
 noStroke();
@@ -48,7 +48,7 @@ fill(17,1,122);
 pos : function() {
    push();
 //translate(this.x-1200, this.y, this.z+30);
-translate(this.x*-10+180, this.y*2+80, this.z);
+translate(this.x*-12+180, this.y*2+80, this.z);
 
   rotateY(frameCount * 0.02);
   torus(this.r, this.tR);
@@ -74,7 +74,7 @@ function draw() {
 //camera(xOrient, yOrient, z*-1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 //camera(mX, mY, mZ*1, height/4, (height/4) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
-camera(mX, mY, z*-1, height/2, (height/2) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
+camera(mX, mY, z*-6, height/2, (height/2) / tan(PI/6), -width/2, height/2, 0, 0, 1, 0);
 
 for(var i = 0; i < hoops.length; i++) {
 hoops[i].display();
@@ -84,7 +84,7 @@ hoops[i].pos();
 
 //Original Torus
 push();
-translate(-windowWidth/2+300, windowHeight/6,-300);
+translate(-windowWidth/2+250, windowHeight/6,-300);
   rotateY(frameCount * 0.02);
   torus(100, 8);
 pop();
@@ -101,11 +101,7 @@ pop();
 
 z++;
 
-if(mZ > 0) {
 
-z*-3;
-
-}
 
 }
 
